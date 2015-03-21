@@ -58,11 +58,14 @@ with con:
 
 
 with con:
+    #compared iterating across rows vs a dataframe
     cur = con.cursor()
     cur.execute("SELECT name, state, year, warm_month, cold_month, average_high \
                 FROM cities INNER JOIN weather WHERE name = city;")
     rows = cur.fetchall()
+    #printed cur.descriptions so I could see the headers
     print cur.description
+    #named the columns from descriptions to avoid having to use index numbers
     cols = [desc[0] for desc in cur.description]
     df = pd.DataFrame(rows, columns=cols)
     print df
@@ -81,8 +84,10 @@ with con:
     df = pd.DataFrame(rows, columns=cols)
     for city in (df['city']):
         print city
+        #testing formating strings
+        print "{} is my favorite city". format(city)
 
 
 """
-Question - how ow do I iterate across dataframe
+Question - how do do I iterate across dataframe properly
 """
